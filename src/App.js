@@ -14,6 +14,9 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.setState({
+      joke: {}
+    });
     this.fetchJoke();
   }
 

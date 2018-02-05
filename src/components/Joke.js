@@ -5,16 +5,15 @@ class Joke extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			loaded: true,
 			showPunchline: false
 		};
 		this.revealPunchline = this.revealPunchline.bind(this);
 		this.showAnotherJoke = this.showAnotherJoke.bind(this);
 	}
 
-	componentWillReceiveProps(newProps) {
+	componentWillReceiveProps() {
 		this.setState({
-			loaded: true
+			showPunchline: false,
 		});
 	}
 
@@ -25,11 +24,7 @@ class Joke extends Component {
 	}
 
 	showAnotherJoke() {
-		this.setState({
-			showPunchline: false,
-			loaded: false
-		});
-		this.props.fetchJoke();
+		this.props.fetchJoke();		
 	}
 
 	render() {
@@ -39,10 +34,11 @@ class Joke extends Component {
 				<button className="button" onClick={this.showAnotherJoke}>I want another joke!</button>
 			</div>
 			: <button className="button" onClick={this.revealPunchline}>What's the punchline?</button>
+		
 		return(
 			<div className="joke">
-				{this.state.loaded && (<div><h1 className="setup">{this.props.setup}</h1>
-				{bottomContent}</div>)}
+				<h1 className="setup">{this.props.setup}</h1>
+				{bottomContent}
 			</div>
 		);
 	}

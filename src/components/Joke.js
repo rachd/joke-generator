@@ -8,12 +8,11 @@ class Joke extends Component {
 			showPunchline: false
 		};
 		this.revealPunchline = this.revealPunchline.bind(this);
-		this.showAnotherJoke = this.showAnotherJoke.bind(this);
 	}
 
-	componentWillReceiveProps() {
+	componentWillReceiveProps(nextProps) {
 		this.setState({
-			showPunchline: false,
+			showPunchline: false
 		});
 	}
 
@@ -23,22 +22,19 @@ class Joke extends Component {
 		});
 	}
 
-	showAnotherJoke() {
-		this.props.fetchJoke();		
-	}
 
 	render() {
-		const bottomContent = this.state.showPunchline ? 
-			<div>
-				<h2 className="punchline">{this.props.punchline}</h2>
-				<button className="button" onClick={this.showAnotherJoke}>I want another joke!</button>
-			</div>
-			: <button className="button" onClick={this.revealPunchline}>What's the punchline?</button>
-		
-		return(
+		return (
 			<div className="joke">
 				<h1 className="setup">{this.props.setup}</h1>
-				{bottomContent}
+				{this.state.showPunchline ? (
+					<div>
+						<h2 className="punchline">{this.props.punchline}</h2>
+						<button className="button" onClick={this.props.fetchJoke}>I want another joke!</button>
+					</div> 
+				) : (
+					<button className="button" onClick={this.revealPunchline}>What's the punchline?</button>
+				)}
 			</div>
 		);
 	}
